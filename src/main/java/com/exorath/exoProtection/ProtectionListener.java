@@ -183,7 +183,11 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPistonEvent(BlockPistonEvent event) {
+    public void onPistonEvent(BlockPistonRetractEvent event) {
+        event.setCancelled(!configuration.canPistonWork());
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPistonEvent(BlockPistonExtendEvent event) {
         event.setCancelled(!configuration.canPistonWork());
     }
 
