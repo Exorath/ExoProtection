@@ -62,6 +62,12 @@ public class ProtectionListener implements Listener {
         world.setTime(configuration.getInitialTime());
         world.setGameRuleValue("doDaylightCycle", String.valueOf(configuration.doNightCycle()));
         world.setSpawnFlags(configuration.canSpawnCreatures(), configuration.canSpawnCreatures());
+        if (!configuration.canSpawnCreatures()) {
+            world.setAmbientSpawnLimit(0);
+            world.setMonsterSpawnLimit(0);
+            world.setAnimalSpawnLimit(0);
+            world.setWaterAnimalSpawnLimit(0);
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -71,6 +77,7 @@ public class ProtectionListener implements Listener {
         else
             event.setCancelled(!configuration.entitiesCanDamage());
     }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onWorldLoad(FoodLevelChangeEvent event) {
         event.setCancelled(!configuration.canHunger());
@@ -185,6 +192,7 @@ public class ProtectionListener implements Listener {
     public void onPistonEvent(BlockPistonRetractEvent event) {
         event.setCancelled(!configuration.canPistonWork());
     }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPistonEvent(BlockPistonExtendEvent event) {
         event.setCancelled(!configuration.canPistonWork());
@@ -209,14 +217,17 @@ public class ProtectionListener implements Listener {
     public void onSpawnCreature(CreatureSpawnEvent event) {
         event.setCancelled(!configuration.canSpawnCreatures());
     }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSpawnItem(ItemSpawnEvent event) {
         event.setCancelled(!configuration.canItemSpawn());
     }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onSpawnerSpawn(SpawnerSpawnEvent event) {
         event.setCancelled(!configuration.canSpawnersSpawn());
     }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onWeatherChange(WeatherChangeEvent event) {
         event.setCancelled(configuration.isAlwaysRaining() != null);
