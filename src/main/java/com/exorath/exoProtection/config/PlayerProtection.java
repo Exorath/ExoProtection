@@ -49,4 +49,6 @@ public interface PlayerProtection {
     boolean canDamageBlock();
     boolean canInteractInventory();
 
+
+    boolean canTakeDamage();
 }

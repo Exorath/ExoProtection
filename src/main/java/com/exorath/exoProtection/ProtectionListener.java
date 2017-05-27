@@ -19,10 +19,12 @@ package com.exorath.exoProtection;
 import com.exorath.exoProtection.config.ProtectionConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.*;
@@ -46,6 +48,7 @@ public class ProtectionListener implements Listener {
         initWorld(event.getWorld());
     }
 
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (configuration.getDefaultGamemode() != null)
@@ -61,6 +64,12 @@ public class ProtectionListener implements Listener {
         world.setGameRuleValue("doDaynightCycle", String.valueOf(configuration.doNightCycle()));
 
 
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onWorldLoad(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player)
+            event.setCancelled(!configuration.canTakeDamage());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
