@@ -69,6 +69,8 @@ public class ProtectionListener implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player)
             event.setCancelled(!configuration.canTakeDamage());
+        else
+            event.setCancelled(!configuration.entitiesCanDamage());
     }
     @EventHandler(priority = EventPriority.LOWEST)
     public void onWorldLoad(FoodLevelChangeEvent event) {

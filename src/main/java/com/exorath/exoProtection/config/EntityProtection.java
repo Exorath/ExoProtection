@@ -23,4 +23,6 @@ public interface EntityProtection {
     boolean canSpawnCreatures();
     boolean canSpawnersSpawn();
     boolean canItemSpawn();
+
+    boolean entitiesCanDamage();
 }
