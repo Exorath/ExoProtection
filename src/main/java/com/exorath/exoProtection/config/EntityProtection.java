@@ -20,5 +20,7 @@ package com.exorath.exoProtection.config;
  * Created by toonsev on 5/27/2017.
  */
 public interface EntityProtection {
-    boolean canSpawnEntities();
+    boolean canSpawnCreatures();
+    boolean canSpawnersSpawn();
+    boolean canItemSpawn();
 }

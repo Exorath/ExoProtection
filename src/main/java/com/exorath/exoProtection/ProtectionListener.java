@@ -24,9 +24,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -207,10 +205,17 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onSpawnEntity(EntitySpawnEvent event) {
-        event.setCancelled(!configuration.canSpawnEntities());
+    public void onSpawnCreature(CreatureSpawnEvent event) {
+        event.setCancelled(!configuration.canSpawnCreatures());
     }
-
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSpawnItem(ItemSpawnEvent event) {
+        event.setCancelled(!configuration.canItemSpawn());
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onSpawnerSpawn(SpawnerSpawnEvent event) {
+        event.setCancelled(!configuration.canSpawnersSpawn());
+    }
     @EventHandler(priority = EventPriority.LOWEST)
     public void onWeatherChange(WeatherChangeEvent event) {
         event.setCancelled(configuration.isAlwaysRaining() != null);
