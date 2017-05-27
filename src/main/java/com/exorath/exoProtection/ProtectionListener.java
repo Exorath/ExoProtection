@@ -61,8 +61,7 @@ public class ProtectionListener implements Listener {
         }
         world.setTime(configuration.getInitialTime());
         world.setGameRuleValue("doDaylightCycle", String.valueOf(configuration.doNightCycle()));
-
-
+        world.setSpawnFlags(configuration.canSpawnCreatures(), configuration.canSpawnCreatures());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
