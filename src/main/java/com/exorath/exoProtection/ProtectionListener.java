@@ -60,7 +60,7 @@ public class ProtectionListener implements Listener {
             world.setStorm(configuration.isAlwaysRaining());
         }
         world.setTime(configuration.getInitialTime());
-        world.setGameRuleValue("doDaynightCycle", String.valueOf(configuration.doNightCycle()));
+        world.setGameRuleValue("doDaylightCycle", String.valueOf(configuration.doNightCycle()));
 
 
     }
