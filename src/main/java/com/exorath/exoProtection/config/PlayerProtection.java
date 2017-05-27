@@ -51,4 +51,6 @@ public interface PlayerProtection {
 
 
     boolean canTakeDamage();
+
+    boolean canHunger();
 }

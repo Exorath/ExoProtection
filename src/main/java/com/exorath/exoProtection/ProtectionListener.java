@@ -26,6 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -49,7 +50,7 @@ public class ProtectionListener implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         if (configuration.getDefaultGamemode() != null)
             event.getPlayer().setGameMode(configuration.getDefaultGamemode());
@@ -67,9 +68,13 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onWorldLoad(EntityDamageEvent event) {
+    public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player)
             event.setCancelled(!configuration.canTakeDamage());
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onWorldLoad(FoodLevelChangeEvent event) {
+        event.setCancelled(!configuration.canHunger());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
