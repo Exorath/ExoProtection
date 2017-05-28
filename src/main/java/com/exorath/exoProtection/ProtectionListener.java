@@ -19,6 +19,8 @@ package com.exorath.exoProtection;
 import com.exorath.exoProtection.config.ProtectionConfiguration;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,6 +30,7 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
@@ -70,6 +73,17 @@ public class ProtectionListener implements Listener {
             world.setAnimalSpawnLimit(0);
             world.setWaterAnimalSpawnLimit(0);
         }
+
+        if (!configuration.canSpawnCreatures())
+            world.getEntities().stream().filter(entity -> !(entity instanceof ArmorStand)).forEach(entity -> entity.remove());
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onChunkLoad(ChunkLoadEvent event) {
+        if (!configuration.canSpawnCreatures())
+            for (Entity entity : event.getChunk().getEntities())
+                if (!(entity instanceof ArmorStand))
+                    entity.remove();
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
