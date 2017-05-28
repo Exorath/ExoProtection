@@ -75,14 +75,14 @@ public class ProtectionListener implements Listener {
         }
 
         if (!configuration.canSpawnCreatures())
-            world.getEntities().stream().filter(entity -> !(entity instanceof ArmorStand)).forEach(entity -> entity.remove());
+            world.getEntities().stream().filter(entity -> !(entity.hasMetadata("doNotDespawn"))).forEach(entity -> entity.remove());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onChunkLoad(ChunkLoadEvent event) {
         if (!configuration.canSpawnCreatures())
             for (Entity entity : event.getChunk().getEntities())
-                if (!(entity instanceof ArmorStand))
+                if (!(entity.hasMetadata("doNotDespawn")))
                     entity.remove();
     }
 
