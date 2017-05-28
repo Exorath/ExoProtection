@@ -215,17 +215,22 @@ public class ProtectionListener implements Listener {
         event.setCancelled(!configuration.canPlayersChangeSign());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onSpawnCreature(CreatureSpawnEvent event) {
         event.setCancelled(!configuration.canSpawnCreatures());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
+    public void onEntitySpawn(EntitySpawnEvent event) {
+        event.setCancelled(!configuration.canSpawnCreatures());
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
     public void onSpawnItem(ItemSpawnEvent event) {
         event.setCancelled(!configuration.canItemSpawn());
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onSpawnerSpawn(SpawnerSpawnEvent event) {
         event.setCancelled(!configuration.canSpawnersSpawn());
     }
