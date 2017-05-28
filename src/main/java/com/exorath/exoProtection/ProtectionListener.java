@@ -62,6 +62,7 @@ public class ProtectionListener implements Listener {
         world.setTime(configuration.getInitialTime());
         world.setGameRuleValue("doDaylightCycle", String.valueOf(configuration.doNightCycle()));
         world.setGameRuleValue("doMobSpawning", String.valueOf(configuration.canSpawnCreatures()));
+        world.setGameRuleValue("showDeathMessages", "false");
         world.setSpawnFlags(configuration.canSpawnCreatures(), configuration.canSpawnCreatures());
         if (!configuration.canSpawnCreatures()) {
             world.setAmbientSpawnLimit(0);
